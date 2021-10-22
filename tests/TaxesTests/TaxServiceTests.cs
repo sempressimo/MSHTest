@@ -8,32 +8,33 @@ namespace TaxesTests
 {
     public class TaxesTests
     {
+        private readonly TaxService _taxService;
+
+        public TaxesTests()
+        {
+            this._taxService = new TaxService(new TaxJarCalculator());
+        }
+
         [Fact]
         public void TaxService_ShouldFailGettingRatesOnBadRequest()
         {
-            TaxService taxJarCalculator = new TaxService(new TaxJarCalculator());
-
             Assert.Throws<ApplicationException>(
-                    () => taxJarCalculator.GetTaxRatesByLocation("")
+                    () => _taxService.GetTaxRatesByLocation("")
                 );
         }
 
         [Fact]
         public void TaxService_ShouldFailToCalculateRatesOnBadRequest()
         {
-            TaxService taxJarCalculator = new TaxService(new TaxJarCalculator());
-
             Assert.Throws<ApplicationException>(
-                    () => taxJarCalculator.CalculateTaxForOrder(new TaxForOrderRequestDTO())
+                    () => _taxService.CalculateTaxForOrder(new TaxForOrderRequestDTO())
                 );
         }
 
         [Fact]
         public void TaxService_ShouldReturnRatesForLocation()
         {
-            TaxService taxJarCalculator = new TaxService(new TaxJarCalculator());
-
-            var rates = taxJarCalculator.GetTaxRatesByLocation("32819");
+            var rates = _taxService.GetTaxRatesByLocation("32819");
 
             Assert.NotNull(rates);
 
@@ -43,9 +44,7 @@ namespace TaxesTests
         [Fact]
         public void TaxService_ShouldReturnPositiveRates()
         {
-            TaxService taxJarCalculator = new TaxService(new TaxJarCalculator());
-
-            var rates = taxJarCalculator.GetTaxRatesByLocation("32819");
+            var rates = _taxService.GetTaxRatesByLocation("32819");
 
             Assert.NotNull(rates);
 
