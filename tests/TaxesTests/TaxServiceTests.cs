@@ -11,10 +11,11 @@ namespace TaxesTests
     public class TaxesTests
     {
         private readonly TaxService _taxService;
-        private readonly Mock<ITaxCalculator> _taxCalculator = new Mock<ITaxCalculator>();
+        private readonly Mock<ITaxCalculator> _taxCalculator;
 
         public TaxesTests()
         {
+            this._taxCalculator = new Mock<ITaxCalculator>();
             this._taxService = new TaxService(_taxCalculator.Object);
         }
 
@@ -42,6 +43,20 @@ namespace TaxesTests
             Assert.True(
                 rates.CityRate >= 0 && rates.CombinedDistrictRate >= 0 && rates.CombinedRate >= 0 && rates.Country_Rate >= 0 && rates.CountyRate >= 0 && rates.StateRate >= 0
                 );
+        }
+
+        [Fact]
+        public void TaxService_ShouldCalculateTaxForOrder()
+        {
+            TaxForOrderRequestDTO taxForOrderRequestDTO = new TaxForOrderRequestDTO();
+
+            _taxCalculator.Setup(x => x.CalculateTaxForOrder(taxForOrderRequestDTO)).Returns(new TaxForOrderResultsDTO());
+
+            TaxForOrderResultsDTO taxes = _taxService.CalculateTaxForOrder(taxForOrderRequestDTO);
+
+            Assert.NotNull(taxes);
+
+            Assert.True(taxes.TaxableAmount >= 0);
         }
     }
 }

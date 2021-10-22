@@ -18,7 +18,14 @@ namespace MSHTest.Infrastructure.Services
 
         public TaxForOrderResultsDTO CalculateTaxForOrder(TaxForOrderRequestDTO taxForOrderRequestDTO)
         {
-            return _taxCalculator.CalculateTaxForOrder(taxForOrderRequestDTO);
+            try
+            {
+                return _taxCalculator.CalculateTaxForOrder(taxForOrderRequestDTO);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public async Task<TaxForOrderResultsDTO> CalculateTaxForOrderAsync(TaxForOrderRequestDTO taxForOrderRequestDTO)
