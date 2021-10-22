@@ -1,3 +1,5 @@
+using Moq;
+using MSHTest.Application.Interfaces;
 using MSHTest.Common.DTO;
 using MSHTest.Infrastructure;
 using MSHTest.Infrastructure.Services;
@@ -9,31 +11,18 @@ namespace TaxesTests
     public class TaxesTests
     {
         private readonly TaxService _taxService;
+        private readonly Mock<ITaxCalculator> _taxCalculator = new Mock<ITaxCalculator>();
 
         public TaxesTests()
         {
-            this._taxService = new TaxService(new TaxJarCalculator());
-        }
-
-        [Fact]
-        public void TaxService_ShouldFailGettingRatesOnBadRequest()
-        {
-            Assert.Throws<ApplicationException>(
-                    () => _taxService.GetTaxRatesByLocation("")
-                );
-        }
-
-        [Fact]
-        public void TaxService_ShouldFailToCalculateRatesOnBadRequest()
-        {
-            Assert.Throws<ApplicationException>(
-                    () => _taxService.CalculateTaxForOrder(new TaxForOrderRequestDTO())
-                );
+            this._taxService = new TaxService(_taxCalculator.Object);
         }
 
         [Fact]
         public void TaxService_ShouldReturnRatesForLocation()
         {
+            _taxCalculator.Setup(x => x.GetTaxRatesByLocation("32819")).Returns(new LocationTaxRateResultsDTO() { State = "FL" });
+            
             var rates = _taxService.GetTaxRatesByLocation("32819");
 
             Assert.NotNull(rates);
@@ -44,6 +33,8 @@ namespace TaxesTests
         [Fact]
         public void TaxService_ShouldReturnPositiveRates()
         {
+            _taxCalculator.Setup(x => x.GetTaxRatesByLocation("32819")).Returns(new LocationTaxRateResultsDTO());
+
             var rates = _taxService.GetTaxRatesByLocation("32819");
 
             Assert.NotNull(rates);
