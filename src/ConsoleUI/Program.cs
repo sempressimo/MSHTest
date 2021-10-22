@@ -35,12 +35,9 @@ namespace ConsoleUI
                 shipping = 1.5M
             };
 
-            Task<TaxForOrderResultsDTO> taxForOrderDTO = taxService.CalculateTaxForOrderAsync(TaxForOrderRequest);
+            TaxForOrderResultsDTO taxForOrderDTO = taxService.CalculateTaxForOrder(TaxForOrderRequest);
 
-            if (taxForOrderDTO.IsCompletedSuccessfully)
-            {
-                Console.WriteLine($"Taxable amount: {taxForOrderDTO.Result.taxable_amount}");
-            }
+            Console.WriteLine($"Taxable amount: {taxForOrderDTO.taxable_amount}");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MSHTest.TaxJar.Client.Model
         public string to_country { get; set; }
         public string to_zip { get; set; }
         public string to_state { get; set; }
-        public decimal amount { get; set; }
-        public decimal shipping { get; set; }
+        public decimal Amount { get; set; }
+        public decimal Shipping { get; set; }
     }
 }
