@@ -2,7 +2,7 @@
 using MSHTest.Application.Interfaces;
 using MSHTest.Common.DTO;
 using MSHTest.Infrastructure.ApiClients;
-using MSHTest.Infrastructure.Utils;
+using MSHTest.Common.Utils;
 using MSHTest.TaxJar.Client.Model;
 using System.Threading.Tasks;
 
