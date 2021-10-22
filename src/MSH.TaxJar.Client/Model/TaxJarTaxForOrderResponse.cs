@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -81,15 +82,31 @@ namespace MSHTest.TaxJar.Client.Model
 {
     public class TaxJarTax
     {
-        public decimal amount_to_collect { get; set; }
-        public bool freight_taxable { get; set; }
-        public bool has_nexus { get; set; }
-        public decimal order_total_amount { get; set; }
-        public decimal rate { get; set; }
-        public decimal shipping { get; set; }
-        public string tax_source { get; set; }
-        public decimal taxable_amount { get; set; }
+        [JsonProperty(PropertyName = "amount_to_collect")]
+        public decimal AmountToCollect { get; set; }
 
+        [JsonProperty(PropertyName = "freight_taxable")]
+        public bool FreightTaxable { get; set; }
+
+        [JsonProperty(PropertyName = "has_nexus")]
+        public bool HasNexus { get; set; }
+
+        [JsonProperty(PropertyName = "order_total_amount")]
+        public decimal OrderTotalAmount { get; set; }
+
+        [JsonProperty(PropertyName = "rate")]
+        public decimal Rate { get; set; }
+
+        [JsonProperty(PropertyName = "shipping")]
+        public decimal Shipping { get; set; }
+
+        [JsonProperty(PropertyName = "tax_source")]
+        public string TaxSource { get; set; }
+
+        [JsonProperty(PropertyName = "taxable_amount")]
+        public decimal TaxableAmount { get; set; }
+
+        [JsonProperty(PropertyName = "jurisdictions")]
         public TaxJarJurisdictions Jurisdictions { get; set; }
     }
 

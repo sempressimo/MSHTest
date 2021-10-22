@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,14 +15,14 @@ namespace MSHTest.Common.DTO
 
     public class TaxForOrderResultsDTO
     {
-        public decimal amount_to_collect { get; set; }
-        public bool freight_taxable { get; set; }
-        public bool has_nexus { get; set; }
-        public decimal order_total_amount { get; set; }
-        public decimal rate { get; set; }
-        public decimal shipping { get; set; }
-        public string tax_source { get; set; }
-        public decimal taxable_amount { get; set; }
+        public decimal AmountToCollect { get; set; }
+        public bool FreightTaxable { get; set; }
+        public bool HasNexus { get; set; }
+        public decimal OrderTotalAmount { get; set; }
+        public decimal Rate { get; set; }
+        public decimal Shipping { get; set; }
+        public string TaxSource { get; set; }
+        public decimal TaxableAmount { get; set; }
 
         public JurisdictionsDTO Jurisdictions { get; set; }
     }

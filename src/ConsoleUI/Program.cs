@@ -37,7 +37,7 @@ namespace ConsoleUI
 
             TaxForOrderResultsDTO taxForOrderDTO = taxService.CalculateTaxForOrder(TaxForOrderRequest);
 
-            Console.WriteLine($"Taxable amount: {taxForOrderDTO.taxable_amount}");
+            Console.WriteLine($"Taxable amount: {taxForOrderDTO.TaxableAmount}");
         }
     }
 }
