@@ -1,3 +1,4 @@
+using MSHTest.Common.DTO;
 using MSHTest.Infrastructure;
 using MSHTest.Infrastructure.Services;
 using System;
@@ -8,12 +9,22 @@ namespace TaxesTests
     public class TaxesTests
     {
         [Fact]
-        public void TaxService_ShouldFailOnBadRequest()
+        public void TaxService_ShouldFailGettingRatesOnBadRequest()
         {
             TaxService taxJarCalculator = new TaxService(new TaxJarCalculator());
 
             Assert.Throws<ApplicationException>(
                     () => taxJarCalculator.GetTaxRatesByLocation("")
+                );
+        }
+
+        [Fact]
+        public void TaxService_ShouldFailToCalculateRatesOnBadRequest()
+        {
+            TaxService taxJarCalculator = new TaxService(new TaxJarCalculator());
+
+            Assert.Throws<ApplicationException>(
+                    () => taxJarCalculator.CalculateTaxForOrder(new TaxForOrderRequestDTO())
                 );
         }
 
