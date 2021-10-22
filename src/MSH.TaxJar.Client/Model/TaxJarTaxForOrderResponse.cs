@@ -82,31 +82,15 @@ namespace MSHTest.TaxJar.Client.Model
 {
     public class TaxJarTax
     {
-        [JsonProperty(PropertyName = "amount_to_collect")]
         public decimal AmountToCollect { get; set; }
-
-        [JsonProperty(PropertyName = "freight_taxable")]
         public bool FreightTaxable { get; set; }
-
-        [JsonProperty(PropertyName = "has_nexus")]
         public bool HasNexus { get; set; }
-
-        [JsonProperty(PropertyName = "order_total_amount")]
         public decimal OrderTotalAmount { get; set; }
-
-        [JsonProperty(PropertyName = "rate")]
         public decimal Rate { get; set; }
-
-        [JsonProperty(PropertyName = "shipping")]
         public decimal Shipping { get; set; }
-
-        [JsonProperty(PropertyName = "tax_source")]
         public string TaxSource { get; set; }
-
-        [JsonProperty(PropertyName = "taxable_amount")]
         public decimal TaxableAmount { get; set; }
 
-        [JsonProperty(PropertyName = "jurisdictions")]
         public TaxJarJurisdictions Jurisdictions { get; set; }
     }
 
