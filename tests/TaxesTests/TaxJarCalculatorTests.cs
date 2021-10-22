@@ -8,32 +8,33 @@ namespace TaxesTests
 {
     public class TaxJarCalculatorTests
     {
+        private readonly TaxJarCalculator _taxJarCalculator;
+
+        public TaxJarCalculatorTests()
+        {
+            _taxJarCalculator = new TaxJarCalculator();
+        }
+
         [Fact]
         public void TaxJarCalculator_GetRatesShouldFailOnBadRequest()
         {
-            TaxJarCalculator taxJarCalculator = new TaxJarCalculator();
-
             Assert.Throws<ApplicationException>(
-                    () => taxJarCalculator.GetTaxRatesByLocation("")
+                    () => _taxJarCalculator.GetTaxRatesByLocation("")
                 );
         }
 
         [Fact]
         public void TaxJarCalculator_CalculateTaxeshouldFailOnBadRequest()
         {
-            TaxJarCalculator taxJarCalculator = new TaxJarCalculator();
-
             Assert.Throws<ApplicationException>(
-                    () => taxJarCalculator.CalculateTaxForOrder(new TaxForOrderRequestDTO()) // Empty params
+                    () => _taxJarCalculator.CalculateTaxForOrder(new TaxForOrderRequestDTO()) // Empty params
                 );
         }
 
         [Fact]
         public void TaxJarCalculator_ShouldReturnRatesForLocation()
         {
-            TaxJarCalculator taxJarCalculator = new TaxJarCalculator();
-
-            var rates = taxJarCalculator.GetTaxRatesByLocation("32819");
+            var rates = _taxJarCalculator.GetTaxRatesByLocation("32819");
 
             Assert.NotNull(rates);
 
@@ -43,9 +44,7 @@ namespace TaxesTests
         [Fact]
         public void TaxJarCalculator_ShouldReturnPositiveRates()
         {
-            TaxJarCalculator taxJarCalculator = new TaxJarCalculator();
-
-            var rates = taxJarCalculator.GetTaxRatesByLocation("32819");
+            var rates = _taxJarCalculator.GetTaxRatesByLocation("32819");
 
             Assert.NotNull(rates);
 
@@ -57,8 +56,6 @@ namespace TaxesTests
         [Fact]
         public void TaxJarCalculator_ShouldCalculateTaxesForAnOrder()
         {
-            TaxJarCalculator taxJarCalculator = new TaxJarCalculator();
-
             TaxForOrderRequestDTO TaxForOrderRequest = new TaxForOrderRequestDTO()
             {
                 Amount = 16,
@@ -71,7 +68,7 @@ namespace TaxesTests
                 Shipping = 1
             };
 
-            var taxes = taxJarCalculator.CalculateTaxForOrder(TaxForOrderRequest);
+            var taxes = _taxJarCalculator.CalculateTaxForOrder(TaxForOrderRequest);
 
             Assert.NotNull(taxes);
 
