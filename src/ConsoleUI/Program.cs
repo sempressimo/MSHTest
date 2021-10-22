@@ -25,14 +25,14 @@ namespace ConsoleUI
 
             TaxForOrderRequestDTO TaxForOrderRequest = new TaxForOrderRequestDTO()
             {
-                amount = 16,
-                from_country = "US",
-                to_country = "US",
-                from_state = "NJ",
-                from_zip = "07001",
-                to_zip = "07446",
-                to_state = "NJ",
-                shipping = 1
+                Amount = 16,
+                FromCountry = "US",
+                ToCountry = "US",
+                FromState = "NJ",
+                FromZip = "07001",
+                ToZip = "07446",
+                ToState = "NJ",
+                Shipping = 1
             };
 
             TaxForOrderResultsDTO taxForOrderDTO = taxService.CalculateTaxForOrder(TaxForOrderRequest);
