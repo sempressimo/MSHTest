@@ -27,28 +27,35 @@ namespace ConsoleUI
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Couldn't retrieve taxes for location. Details: {ex.Message}");
+                Console.WriteLine($"Couldn't retrieve rates for location. Details: {ex.Message}");
             }
 
-            TaxForOrderRequestDTO TaxForOrderRequest = new TaxForOrderRequestDTO()
+            try
             {
-                Amount = 16,
-                FromCountry = "US",
-                ToCountry = "US",
-                FromState = "NJ",
-                FromZip = "07001",
-                ToZip = "07446",
-                ToState = "NJ",
-                Shipping = 1
-            };
+                TaxForOrderRequestDTO TaxForOrderRequest = new TaxForOrderRequestDTO()
+                {
+                    Amount = 16,
+                    FromCountry = "US",
+                    ToCountry = "US",
+                    FromState = "NJ",
+                    FromZip = "07001",
+                    ToZip = "07446",
+                    ToState = "NJ",
+                    Shipping = 1
+                };
 
-            TaxForOrderResultsDTO taxForOrderDTO = taxService.CalculateTaxForOrder(TaxForOrderRequest);
+                TaxForOrderResultsDTO taxForOrderDTO = taxService.CalculateTaxForOrder(TaxForOrderRequest);
 
-            Console.WriteLine($"Taxable amount: {taxForOrderDTO.TaxableAmount}");
+                Console.WriteLine($"Taxable amount: {taxForOrderDTO.TaxableAmount}");
 
-            TaxForOrderResultsDTO taxForOrderDTOAsync = RunCalculateTaxForOrderAsync(TaxForOrderRequest).GetAwaiter().GetResult();
+                TaxForOrderResultsDTO taxForOrderDTOAsync = RunCalculateTaxForOrderAsync(TaxForOrderRequest).GetAwaiter().GetResult();
 
-            Console.WriteLine($"Taxable amount from Asyc: {taxForOrderDTOAsync.TaxableAmount}");
+                Console.WriteLine($"Taxable amount from Asyc: {taxForOrderDTOAsync.TaxableAmount}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Couldn't calculate taxes for location. Details: {ex.Message}");
+            }
         }
     }
 }
