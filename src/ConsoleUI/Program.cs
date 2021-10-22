@@ -8,6 +8,13 @@ namespace ConsoleUI
 {
     class Program
     {
+        private static async Task<TaxForOrderResultsDTO> RunCalculateTaxForOrderAsync(TaxForOrderRequestDTO taxForOrderRequest)
+        {
+            TaxService taxService = new TaxService(new TaxJarCalculator());
+
+            return  await taxService.CalculateTaxForOrderAsync(taxForOrderRequest);
+        }
+
         static void Main(string[] args)
         {
             TaxService taxService = new TaxService(new TaxJarCalculator());
@@ -38,6 +45,10 @@ namespace ConsoleUI
             TaxForOrderResultsDTO taxForOrderDTO = taxService.CalculateTaxForOrder(TaxForOrderRequest);
 
             Console.WriteLine($"Taxable amount: {taxForOrderDTO.TaxableAmount}");
+
+            TaxForOrderResultsDTO taxForOrderDTOAsync = RunCalculateTaxForOrderAsync(TaxForOrderRequest).GetAwaiter().GetResult();
+
+            Console.WriteLine($"Taxable amount from Asyc: {taxForOrderDTOAsync.TaxableAmount}");
         }
     }
 }
