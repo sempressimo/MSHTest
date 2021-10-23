@@ -45,5 +45,17 @@ namespace MSHTest.Infrastructure.Services
                 throw;
             }
         }
+
+        public async Task<LocationTaxRateResultsDTO> GetTaxRatesByLocationAsync(string zipCode)
+        {
+            try
+            {
+                return await _taxCalculator.GetTaxRatesByLocationAsync(zipCode);
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
