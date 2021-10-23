@@ -20,18 +20,6 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void ShouldReturnRatesForLocation()
-        {
-            _taxCalculator.Setup(x => x.GetTaxRatesByLocation("32819")).Returns(new LocationTaxRateResultsDTO() { State = "FL" });
-            
-            var rates = _taxService.GetTaxRatesByLocation("32819");
-
-            Assert.NotNull(rates);
-
-            Assert.True(rates.State.ToUpper() == "FL");
-        }
-
-        [Fact]
         public void ShouldReturnPositiveRates()
         {
             _taxCalculator.Setup(x => x.GetTaxRatesByLocation("32819")).Returns(new LocationTaxRateResultsDTO());
