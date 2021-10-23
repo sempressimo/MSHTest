@@ -16,7 +16,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxJarCalculator_GetRatesShouldFailOnBadRequest()
+        public void GetRatesShouldFailOnBadRequest()
         {
             Assert.Throws<ApplicationException>(
                     () => _taxJarCalculator.GetTaxRatesByLocation("")
@@ -24,7 +24,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxJarCalculator_CalculateTaxeshouldFailOnBadRequest()
+        public void CalculateTaxeshouldFailOnBadRequest()
         {
             Assert.Throws<ApplicationException>(
                     () => _taxJarCalculator.CalculateTaxForOrder(new TaxForOrderRequestDTO()) // Empty params
@@ -32,7 +32,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxJarCalculator_ShouldReturnRatesForLocation()
+        public void ShouldReturnRatesForLocation()
         {
             var rates = _taxJarCalculator.GetTaxRatesByLocation("32819");
 
@@ -42,7 +42,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxJarCalculator_ShouldReturnPositiveRates()
+        public void ShouldReturnPositiveRates()
         {
             var rates = _taxJarCalculator.GetTaxRatesByLocation("32819");
 
@@ -54,7 +54,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxJarCalculator_ShouldCalculateTaxesForAnOrder()
+        public void ShouldCalculateTaxesForAnOrder()
         {
             TaxForOrderRequestDTO TaxForOrderRequest = new TaxForOrderRequestDTO()
             {

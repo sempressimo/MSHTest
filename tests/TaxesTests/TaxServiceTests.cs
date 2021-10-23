@@ -20,7 +20,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxService_ShouldReturnRatesForLocation()
+        public void ShouldReturnRatesForLocation()
         {
             _taxCalculator.Setup(x => x.GetTaxRatesByLocation("32819")).Returns(new LocationTaxRateResultsDTO() { State = "FL" });
             
@@ -32,7 +32,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxService_ShouldReturnPositiveRates()
+        public void ShouldReturnPositiveRates()
         {
             _taxCalculator.Setup(x => x.GetTaxRatesByLocation("32819")).Returns(new LocationTaxRateResultsDTO());
 
@@ -46,7 +46,7 @@ namespace TaxesTests
         }
 
         [Fact]
-        public void TaxService_ShouldCalculateTaxForOrder()
+        public void ShouldCalculateTaxForOrder()
         {
             TaxForOrderRequestDTO taxForOrderRequestDTO = new TaxForOrderRequestDTO();
 
