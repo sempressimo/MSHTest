@@ -3,6 +3,8 @@ using MSHTest.Infrastructure.Services;
 using System;
 using MSHTest.Infrastructure;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace ConsoleUI
 {
