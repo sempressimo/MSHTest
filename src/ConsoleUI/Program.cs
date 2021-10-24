@@ -5,6 +5,8 @@ using MSHTest.Infrastructure;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using RestSharp;
+using RestSharp.Serialization.Json;
 
 namespace ConsoleUI
 {
@@ -15,6 +17,30 @@ namespace ConsoleUI
             TaxService taxService = new TaxService(new TaxJarCalculator());
 
             return  await taxService.CalculateTaxForOrderAsync(taxForOrderRequest);
+        }
+
+        private static void GetTaxRatesFromMicroService()
+        {
+            string _apiBaseUrl = MSHTest.Common.Utils.Config.Get("TaxApiBaseUrl");
+
+            IRestClient _client = new RestClient(_apiBaseUrl);
+
+            IRestRequest request = new RestRequest($"taxservice/taxrates/32819", Method.GET);
+
+            var response = _client.Execute(request);
+
+            if (response.IsSuccessful)
+            {
+                JsonDeserializer deserial = new JsonDeserializer();
+
+                LocationTaxRateResultsDTO locationTaxRateResultsDTO = deserial.Deserialize<LocationTaxRateResultsDTO>(response);
+
+                Console.WriteLine($"State rate from micro service: {locationTaxRateResultsDTO.StateRate}");
+            }
+            else
+            {
+                Console.WriteLine($"Couldn't retrieve rates for location. Details: {response.StatusDescription} {response.ErrorMessage}");
+            }
         }
 
         static void Main(string[] args)
@@ -53,6 +79,8 @@ namespace ConsoleUI
                 TaxForOrderResultsDTO taxForOrderDTOAsync = RunCalculateTaxForOrderAsync(TaxForOrderRequest).GetAwaiter().GetResult();
 
                 Console.WriteLine($"Taxable amount from Asyc: {taxForOrderDTOAsync.TaxableAmount}");
+
+                GetTaxRatesFromMicroService();
             }
             catch (Exception ex)
             {
